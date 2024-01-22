@@ -1,6 +1,6 @@
 data "vultr_plan" "default" {
   filter {
     name   = "id"
-    values = ["vcs2-1c-2gb"]
+    values = ["vc2-1c-2gb"]
   }
 }

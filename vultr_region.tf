@@ -5,7 +5,7 @@ data "vultr_region" "Warsaw" {
   }
 }
 
-data "vultr_block_storage" "London" {
+data "vultr_region" "London" {
   filter {
     name   = "city"
     values = ["London"]
