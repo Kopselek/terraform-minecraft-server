@@ -1,1 +1,1 @@
-VULTR_API_KEY= "api_key"
+vultr_api_key = "api_key"

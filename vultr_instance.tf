@@ -1,5 +1,5 @@
-resource "vultr_instance" "minecraft_instance" {
-  label = "minecraft-instance"
-  plan = "vc2-1c-2gb"
-  region = ""
+resource "vultr_instance" "minecraft" {
+  label  = "minecraft-instance"
+  plan   = vultr_plan.default
+  region = vultr_region.Warsaw
 }

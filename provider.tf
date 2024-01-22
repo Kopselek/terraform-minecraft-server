@@ -1,12 +1,17 @@
 terraform {
-    required_providers {
-      source = "vultr/vultr"
+  required_providers {
+    vultr = {
+      source  = "vultr/vultr"
       version = "2.19.0"
     }
+  }
 }
 
 provider "vultr" {
-    api_key = var.VULTR_API_KEY
+  api_key = var.vultr_api_key
 }
 
-variable "VULTR_API_KEY" {}
+variable "vultr_api_key" {
+  type      = string
+  sensitive = true
+}
