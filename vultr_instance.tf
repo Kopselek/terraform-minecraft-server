@@ -1,8 +1,9 @@
 resource "vultr_instance" "minecraft" {
-  label  = "minecraft-instance"
-  plan   = data.vultr_plan.default.id
-  region = data.vultr_region.London.id
-  os_id  = data.vultr_os.ubuntu_22.id
+  label     = "minecraft-instance"
+  plan      = data.vultr_plan.default.id
+  region    = data.vultr_region.London.id
+  os_id     = data.vultr_os.ubuntu_22.id
+  user_data = file("cloud-config.yml")
 }
 
 resource "vultr_block_storage" "minecraft" {
