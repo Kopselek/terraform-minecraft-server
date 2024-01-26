@@ -10,8 +10,3 @@ terraform {
 provider "vultr" {
   api_key = var.vultr_api_key
 }
-
-variable "vultr_api_key" {
-  type      = string
-  sensitive = true
-}
