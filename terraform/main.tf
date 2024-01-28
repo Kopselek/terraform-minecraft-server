@@ -1,8 +1,9 @@
 resource "vultr_instance" "minecraft" {
-  label  = "minecraft-instance"
-  plan   = data.vultr_plan.default.id
-  region = data.vultr_region.warsaw.id
-  os_id  = data.vultr_os.ubuntu_22.id
+  label             = "minecraft-instance"
+  plan              = data.vultr_plan.default.id
+  region            = data.vultr_region.warsaw.id
+  os_id             = data.vultr_os.ubuntu_22.id
+  firewall_group_id = vultr_firewall_group.minecraft.id
   user_data = join("\n", ["#cloud-config", yamlencode({
     package_update  = true
     package_upgrade = true
@@ -25,4 +26,16 @@ resource "vultr_block_storage" "minecraft" {
   region               = data.vultr_region.warsaw.id
   attached_to_instance = vultr_instance.minecraft.id
   block_type           = "storage_opt"
+}
+
+resource "vultr_firewall_group" "minecraft" {
+}
+
+resource "vultr_firewall_rule" "minecraft" {
+  firewall_group_id = vultr_firewall_group.minecraft.id
+  protocol          = "tcp"
+  ip_type           = "v4"
+  subnet            = "0.0.0.0"
+  subnet_size       = 0
+  port              = "25565"
 }
