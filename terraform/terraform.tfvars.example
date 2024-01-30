@@ -1,1 +1,5 @@
-vultr_api_key = "api_key"
+vultr_api_key = "YOUR API KEY"
+cloudflare    = false
+# uncomment variables below only if you set cloudflare to true
+#cloudflare_api_key = "YOUR CLOUDFLARE API KEY"
+#cloudflare_zone_id = "ZONE ID FROM DOMAIN"

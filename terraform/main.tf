@@ -39,3 +39,22 @@ resource "vultr_firewall_rule" "minecraft" {
   subnet_size       = 0
   port              = "25565"
 }
+
+resource "vultr_firewall_rule" "ssh" {
+  firewall_group_id = vultr_firewall_group.minecraft.id
+  protocol          = "tcp"
+  ip_type           = "v4"
+  subnet            = "0.0.0.0"
+  subnet_size       = 0
+  port              = "22"
+}
+
+resource "cloudflare_record" "minecraft" {
+  count   = var.cloudflare ? 1 : 0
+  zone_id = var.cloudflare_zone_id
+  name    = "@"
+  type    = "A"
+  ttl     = 60
+  value   = vultr_instance.minecraft.main_ip
+  proxied = false
+}
