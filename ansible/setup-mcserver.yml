@@ -1,0 +1,41 @@
+- name: Setup minecraft server
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Enable UFW for Minecraft port
+      community.general.ufw:
+        rule: allow
+        port: 25565
+
+    - name: Install OpenJDK 17
+      ansible.builtin.package:
+        name: openjdk-17-jre-headless
+        state: present
+
+    - name: Create server directory
+      ansible.builtin.file:
+        path: /root/server
+        state: directory
+        mode: '0644'
+
+    - name: Create EULA
+      ansible.builtin.copy:
+        content: "eula=true"
+        dest: /root/server/eula.txt
+        mode: '0644'
+
+    - name: Download Minecraft Server
+      ansible.builtin.get_url:
+        url: https://piston-data.mojang.com/v1/objects/8dd1a28015f51b1803213892b50b7b4fc76e594d/server.jar
+        dest: /root/server/server.jar
+        mode: '0644'
+
+    - name: Download Screen
+      ansible.builtin.package:
+        name: screen
+        state: present
+
+    - name: Run Minecraft Server
+      ansible.builtin.command: screen -dmS minecraft java -Xms1024M -Xmx1024M -jar /root/server/server.jar nogui
+      changed_when: false
